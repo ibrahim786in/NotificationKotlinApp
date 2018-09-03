@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.*
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
@@ -21,16 +22,16 @@ class MainNotifActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_notif)
         receiver = MyReceiver()
 
-
-        filter.addAction("android.intent.action.ACTION_POWER_DISCONNECTED")
-        filter.addAction("android.intent.action.ACTION_POWER_CONNECTED")
+        filter.addAction(ACTION_AIRPLANE_MODE_CHANGED)
+        filter.addAction(ACTION_POWER_DISCONNECTED)
+        filter.addAction(ACTION_POWER_CONNECTED)
         registerReceiver(receiver, filter)
 
         val intent = Intent()
-        intent.action = "com.example.ibrahim.notiicationmsg"
+        intent.action =Intent.ACTION_VIEW
         sendBroadcast(intent)
 
-        pushBtn.setOnClickListener() {
+        pushBtn.setOnClickListener {
             if (pushtxtmsg.text.isEmpty()) Toast.makeText(this, "Please Write Some Content first", Toast.LENGTH_SHORT).show()
             else {
                 val pushNotifBuilder: NotificationCompat.Builder = NotificationCompat.Builder(this, "ChannelId 1")
